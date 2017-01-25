@@ -1,0 +1,19 @@
+function [ f ] = createFilterBank( scale, orient )
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+
+sobel = [ 1 2 1; 0 0 0; -1 -2 -1];
+f = cell(scale, 1);
+
+angStep = 360.0 / orient;
+for s = 1:scale
+    g = gaussian(5, 3);
+    tempF = conv2(sobel, g);
+    f(s) = zeros(orient, size(tempF));
+    for o = 1:orient
+        f(s)(o, :, :) =  imrotate(tempF, angStep * (o - 1));
+    end
+end
+
+end
+
