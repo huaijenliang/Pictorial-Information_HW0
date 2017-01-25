@@ -17,4 +17,3 @@ end
 [~, labels] = max(prob, [], 3);
 
 end
-
