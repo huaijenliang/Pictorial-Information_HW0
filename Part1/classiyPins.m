@@ -1,15 +1,16 @@
-function [ label ] = classiyPins( features, means, sigmas )
+function [ labels ] = classiyPins( features, means, sigmas )
 %Classigy pins by using gaussian model
 %   Detailed explanation goes here
 
-[rows, cols, ~] = size(features);
+classNum = size(means, 3);
+[rows, cols, dims] = size(features);
 
-labels = zeros(rows, cols);
+labels = zeros(rows, cols, classNum);
 
-for r = 1:rows
-    for c = 1:cols
-        labels(r, c) = findMaxGaussian(features(r, c, :), means, sigmas);
-    end
+features = reshape(features, [], dims, 1);
+
+for c = 1:classNum
+    labels(:, :, c) = mvnpdf(features, means(:, :, c), sigmas(:, :, c));
 end
 
 end

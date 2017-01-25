@@ -1,13 +1,16 @@
-function [ label ] = classiyPins( features, means, sigmas )
+function [ labels ] = classiyPins( features, means, sigmas )
 %Classigy pins by using gaussian model
 %   Detailed explanation goes here
 
+classNum = size(means, 3);
 [rows, cols, ~] = size(features);
 
-for r = 1:rows
-    for c = 1:cols
-        
-    end
+labels = zeros(rows, cols, classNum);
+
+
+
+for c = 1:classNum
+    labels(:, :, c) = mvnpdf(features, means(:, :, c), sigmas(:, :, c));
 end
 
 end
