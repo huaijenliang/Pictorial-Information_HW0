@@ -25,8 +25,9 @@ feature_white = computeFeature(img_white);
 [mean_white, sigma_white] = computeMeanAndVar(feature_white);
 feature_trans = computeFeature(img_trans);
 [mean_trans, sigma_trans] = computeMeanAndVar(feature_trans);
-means = cat(3, mean_red, mean_green, mean_blue, mean_yellow, mean_white, mean_trans);
-sigmas = cat(3, sigma_red, sigma_green, sigma_blue, sigma_yellow, sigma_white, sigma_trans);
+% keyboard
+means = cat(3, mean_red, mean_green, mean_blue, mean_yellow, mean_white);%, mean_trans);
+sigmas = cat(3, sigma_red, sigma_green, sigma_blue, sigma_yellow, sigma_white);%, sigma_trans);
 
 features = computeFeature(img_f);
 labels = classifyPins(features, means, sigmas);
