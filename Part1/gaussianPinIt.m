@@ -4,7 +4,7 @@ function [ output_args ] = gaussianPinIt( filename )
 
 img = imread(filename);
 img_d = im2double(img);
-img_f = imgaussfilt(img_d);
+img_f = medfilt3(img_d);
 
 img_red = im2double(imread('red_pin.png'));
 img_green = im2double(imread('green_pin.png'));
@@ -33,7 +33,7 @@ sigmas = cat(3, sigma_red, sigma_green, sigma_blue, sigma_yellow, sigma_white, s
 features = computeFeature(img_f);
 labels = classifyPins(features, means, sigmas);
 labels_gmm = classifyPinsWithGMM(features, means, sigmas);
-l = repmat(labels(:, :, 6), [1 1 3]);
+l = repmat(labels(:, :, 5), [1 1 3]);
 img(~l) = 0;
 imshow(img)
 end

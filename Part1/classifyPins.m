@@ -14,6 +14,7 @@ for c = 1:classNum
     tempProb = mvnpdf(features, means(c, :), sigmas(:, :, c));
     prob(:, :, c) = reshape(tempProb, rows, cols);
     labels(:, :, c) = prob(:, :, c) > (0.2 * max(max(prob(:, :, c))));
+    labels(:, :, c) = bwmorph(labels(:, :, c), 'open');
 end
 
 

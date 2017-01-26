@@ -3,7 +3,7 @@ function [ counts ] = colorPinIt( filename )
 %   filename: image's path
 img = imread(filename);
 img_d = im2double(img);
-img_f = imgaussfilt(img_d);
+img_f = medfilt3(img_d);
 % imshow(img_f)
 img_lab = rgb2lab(img_f);
 mask.red = img_lab(:, :, 2) > 30;
