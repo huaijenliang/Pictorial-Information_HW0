@@ -26,13 +26,14 @@ feature_white = computeFeature(img_white);
 feature_trans = computeFeature(img_trans);
 [mean_trans, sigma_trans] = computeMeanAndVar(feature_trans);
 % keyboard
-means = cat(3, mean_red, mean_green, mean_blue, mean_yellow, mean_white);%, mean_trans);
+means = cat(1, mean_red, mean_green, mean_blue, mean_yellow, mean_white);%, mean_trans);
 sigmas = cat(3, sigma_red, sigma_green, sigma_blue, sigma_yellow, sigma_white);%, sigma_trans);
 
 features = computeFeature(img_f);
 labels = classifyPins(features, means, sigmas);
-l = repmat(labels, [1 1 3]);
-img(l ~= 1) = 0;
+labels_gmm = classifyPinsWithGMM(features, means, sigmas);
+l = repmat(labels_gmm, [1 1 3]);
+img(l ~= 0) = 0;
 imshow(img)
 end
 
