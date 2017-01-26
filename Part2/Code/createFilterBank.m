@@ -9,9 +9,10 @@ angStep = 360.0 / orient;
 for s = 1:scale
     g = gaussian(5, 3);
     tempF = conv2(sobel, g);
-    rotateF = zeros(orient, size(tempF));
+    % keyboard
+    rotateF = zeros(size(tempF, 1), size(tempF, 2), orient);
     for o = 1:orient
-        rotateF(o, :, :) =  imrotate(tempF, angStep * (o - 1));
+        rotateF(:, :, o) =  cropCenter(imrotate(tempF, angStep * (o - 1)), size(tempF, 1), size(tempF, 2));
     end
     f{s} = rotateF;
 end

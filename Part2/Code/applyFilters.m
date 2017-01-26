@@ -7,12 +7,12 @@ function [ responds ] = applyFilters( img, f )
 %   responds  -output filter responds
 
 scale = size(f, 1);
-orient = size(f{1}, 1);
+orient = size(f{1}, 3);
 responds = zeros(size(img), scale * orient);
 
 for s = 1:scale
     for o = 1:orient
-        filter = f{s}(o, :, :);
+        filter = f{s}(:, :, o);
         responds(:, :, ((s - 1) * orient + o)) = imfilter(img, filter);
     end
 end
