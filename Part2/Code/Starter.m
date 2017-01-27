@@ -3,6 +3,7 @@
 % PhD in CS Student at University of Maryland, College Park
 
 img = imread('../TestImages/1.jpg');
+im = rgb2gray(img);
 
 %% Generate Oriented Gaussian Filter Bank
 % Display all the Gaussian Filter Bank and save image as GaussianFB_ImageName.png,
@@ -16,27 +17,30 @@ h = createHalfDisc(f);
 
 %% Generate Texton Map
 % Filter image using oriented gaussian filter bank
-responds = applyFilters(img, f);
+responds = applyFilters(im, f);
 % Generate texture id's using K-means clustering
-textureID = clusteringRespond(responds, 64);
+K = 64;
+textureID = clusteringRespond(responds, K);
 % Display texton map and save image as TextonMap_ImageName.png,
 % use command saveas
 
 %% Generate Texton Gradient (tg)
 % Perform Chi-square calculation on Texton Map
-
+tg = computeGradient(textureID, h, K);
 % Display tg and save image as tg_ImageName.png,
 % use command saveas
 
 %% Generate Brightness Map
 % Perform brightness binning 
+brightID = floor(im / 4);
+bK = floor(256 / 4);
 
 % Display brightness map and save image as BrightnessMap_ImageName.png,
 % use command saveas
 
 %% Generate Brightness Gradient (bg)
 % Perform Chi-square calculation on Brightness Map
-
+bg = computeGradient(brightID, h, bK);
 % Display bg and save image as bg_ImageName.png,
 % use command saveas
 
