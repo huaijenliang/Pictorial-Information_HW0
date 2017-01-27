@@ -10,13 +10,13 @@ im = rgb2gray(img);
 % use command saveas
 scales = [5, 9, 13];
 f = createFilterBank(scales, 16);
-fig_f = displayFilterBank(f);
+% fig_f = displayFilterBank(f);
 
 %% Generate Half-disk masks
 % Display all the GHalf-disk masks and save image as HDMasks_ImageName.png,
 % use command saveas
 h = createHalfDisc(f);
-fig_h = displayHalfDisc(h);
+% fig_h = displayHalfDisc(h);
 
 %% Generate Texton Map
 % Filter image using oriented gaussian filter bank
@@ -24,8 +24,10 @@ responds = applyFilters(im, f);
 % Generate texture id's using K-means clustering
 K = 64;
 textureID = clusteringRespond(responds, K);
+
 % Display texton map and save image as TextonMap_ImageName.png,
 % use command saveas
+fig_texture = imagesc(textureID);
 
 %% Generate Texton Gradient (tg)
 % Perform Chi-square calculation on Texton Map
@@ -51,7 +53,7 @@ bg = computeGradient(brightID, h, bK);
 % Uncomment the bottom line
 % im is the grayscale version of the original image
 % DO NOT CHANGE THE VALUES IN THE FOLLOWING FUNCTION!!
-% SobelPb = sobel_pb(im,0.08:0.02:.3);
+SobelPb = sobel_pb(im,0.08:0.02:.3);
 
 % Display SobelPb and save image as SobelPb_ImageName.png
 % use command saveas
@@ -60,14 +62,14 @@ bg = computeGradient(brightID, h, bK);
 % Uncomment the bottom line
 % im is the grayscale version of the original image
 % DO NOT CHANGE THE VALUES IN THE FOLLOWING FUNCTION!!
-% CannyPb = canny_pb(im,0.1:0.1:.7,1:1:4);
+CannyPb = canny_pb(im,0.1:0.1:.7,1:1:4);
 
 % Display CannyPb and save image as CannyPb_ImageName.png
 % use command saveas
 
 %% Combine responses to get pb-lite output
 % A simple combination function would be: PbLite = (tg+gb).*(SobelPb+CannyPb)
-
+PbLite = (tg + bg).*(SobelPb + CannyPb);
 % Display PbLite and save image as PbLite_ImageName.png
 % use command saveas
 
