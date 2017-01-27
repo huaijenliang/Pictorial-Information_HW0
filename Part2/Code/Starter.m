@@ -8,12 +8,15 @@ im = rgb2gray(img);
 %% Generate Oriented Gaussian Filter Bank
 % Display all the Gaussian Filter Bank and save image as GaussianFB_ImageName.png,
 % use command saveas
-f = createFilterBank(2, 16);
+scales = [5, 9, 13];
+f = createFilterBank(scales, 16);
+fig_f = displayFilterBank(f);
 
 %% Generate Half-disk masks
 % Display all the GHalf-disk masks and save image as HDMasks_ImageName.png,
 % use command saveas
 h = createHalfDisc(f);
+fig_h = displayHalfDisc(h);
 
 %% Generate Texton Map
 % Filter image using oriented gaussian filter bank

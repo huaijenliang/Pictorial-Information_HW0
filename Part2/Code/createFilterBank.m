@@ -1,13 +1,14 @@
-function [ f ] = createFilterBank( scale, orient )
+function [ f ] = createFilterBank( scales, orient )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
 sobel = [ 1 2 1; 0 0 0; -1 -2 -1];
-f = cell(scale, 1);
+num_scales = numel(scales);
+f = cell(num_scales, 1);
 
 angStep = 360.0 / orient;
-for s = 1:scale
-    g = gaussian(5, 3);
+for s = 1:num_scales
+    g = gaussian(scales(s), 3);
     tempF = conv2(sobel, g);
     % keyboard
     rotateF = zeros(size(tempF, 1), size(tempF, 2), orient);
