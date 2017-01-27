@@ -8,7 +8,7 @@ function [ responds ] = applyFilters( img, f )
 
 scale = size(f, 1);
 orient = size(f{1}, 3);
-responds = zeros(size(img), scale * orient);
+responds = zeros(size(img, 1), size(img, 2), scale * orient);
 
 for s = 1:scale
     for o = 1:orient
