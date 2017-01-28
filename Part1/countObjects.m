@@ -3,7 +3,7 @@ function [L, count] = countObjects( input )
 %   input: a BW image
 
 % erosion and then dilation
-input = bwmorph(input, 'open');
+input = imageOpenOpr(input, 3);
 [L, count] = bwlabel(input);
 
 end
