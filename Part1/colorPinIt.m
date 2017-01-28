@@ -3,8 +3,10 @@ function [ counts ] = colorPinIt( filename )
 %   filename: image's path
 img = imread(filename);
 img_d = im2double(img);
-img_f = medfilt3(img_d);
-% imshow(img_f)
+g = gaussian(5, 0.5);
+img_f = imfilter(img_d, g);
+imshow(img_f)
+imwrite(img_f, 'denoisedImage.png');
 img_lab = rgb2lab(img_f);
 mask.red = img_lab(:, :, 2) > 30;
 % mask.red = repmat(mask.red, [1 1 3]);
