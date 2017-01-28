@@ -13,7 +13,7 @@ for s = 1:num_scales
     % keyboard
     rotateF = zeros(size(tempF, 1), size(tempF, 2), orient);
     for o = 1:orient
-        rotateF(:, :, o) =  cropCenter(imrotate(tempF, angStep * (o - 1)), size(tempF, 1), size(tempF, 2));
+        rotateF(:, :, o) =  imrotate(tempF, angStep * (o - 1), 'bilinear', 'crop');
     end
     f{s} = rotateF;
 end
