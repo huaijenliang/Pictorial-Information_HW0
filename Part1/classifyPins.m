@@ -13,8 +13,8 @@ features = reshape(features, [], dims, 1);
 for c = 1:classNum
     tempProb = mvnpdf(features, means(c, :), sigmas(:, :, c));
     prob(:, :, c) = reshape(tempProb, rows, cols);
-    labels(:, :, c) = prob(:, :, c) > (0.2 * max(max(prob(:, :, c))));
-    labels(:, :, c) = bwmorph(labels(:, :, c), 'open');
+    labels(:, :, c) = prob(:, :, c) > 0.6;% (0.5 * max(max(prob(:, :, c))));
+    labels(:, :, c) = imageOpenOpr(labels(:, :, c), 3);
 end
 
 
