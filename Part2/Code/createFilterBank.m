@@ -8,7 +8,7 @@ f = cell(num_scales, 1);
 
 angStep = 360.0 / orient;
 for s = 1:num_scales
-    g = gaussian(scales(s), 3);
+    g = gaussian(5, scales(s));
     tempF = conv2(sobel, g);
     % keyboard
     rotateF = zeros(size(tempF, 1), size(tempF, 2), orient);

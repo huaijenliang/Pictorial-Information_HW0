@@ -13,7 +13,7 @@ responds = zeros(size(img, 1), size(img, 2), scale * orient);
 for s = 1:scale
     for o = 1:orient
         filter = f{s}(:, :, o);
-        responds(:, :, ((s - 1) * orient + o)) = imfilter(img, filter);
+        responds(:, :, ((s - 1) * orient + o)) = imfilter(img, filter, 'conv');
     end
 end
 
