@@ -16,7 +16,7 @@ prob = permute(prob, [1 3 2]);
 prob = reshape(prob, rows, cols, classNum); 
 
 [maxP, labels] = max(prob, [], 3);
-labels = labels .* (maxP > 0.99);
+labels = labels;% .* (maxP > 0.99);
 
 end
 

@@ -6,14 +6,14 @@ img = imread(filename);
 img_d = im2double(img);
 g = gaussian(5, 3);
 img_f = imfilter(img_d, g);
-img_f = rgb2xyz(img_f);
+img_f = img_f;
 
-img_red = im2double(rgb2xyz(imread('red_pin.png')));
-img_green = im2double(rgb2xyz(imread('green_pin.png')));
-img_blue = im2double(rgb2xyz(imread('blue_pin.png')));
-img_yellow = im2double(rgb2xyz(imread('yellow_pin.png')));
-img_white = im2double(rgb2xyz(imread('white_pin.png')));
-img_trans = im2double(rgb2xyz(imread('trans_pin.png')));
+img_red = im2double(imread('red_pin.png'));
+img_green = im2double(imread('green_pin.png'));
+img_blue = im2double(imread('blue_pin.png'));
+img_yellow = im2double(imread('yellow_pin.png'));
+img_white = im2double(imread('white_pin.png'));
+img_trans = im2double(imread('trans_pin.png'));
 
 feature_red = computeFeature(img_red);
 [mean_red, sigma_red] = computeMeanAndVar(feature_red);
@@ -38,7 +38,7 @@ labels_gmm = classifyPinsWithGMM(features, means, sigmas);
 
 fig = figure;
 for i = 1:size(means, 1)
-    l{i} = repmat(labels(:, :, i), [1 1 3]);
+    l{i} = repmat((labels_gmm == i), [1 1 3]);
     outImg{i} = img;
     outImg{i}(~l{i}) = 0;
     subplot(2, 3, i), imshow(outImg{i});
