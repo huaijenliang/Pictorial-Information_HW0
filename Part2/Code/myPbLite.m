@@ -9,18 +9,19 @@ im = rgb2gray(img);
 
 %% Generate Texton Map
 % Filter image using oriented gaussian filter bank
-responds = applyFilters(im, f.GG);
-responds_LM = applyFilters2(im, f.LM);
-responds_S = applyFilters2(im, f.S);
-responds_MR = applyFilters2(im, f.MR);
+% responds = applyFilters(im, f.GG);
+% responds_LM = applyFilters2(im, f.LM);
+% responds_S = applyFilters2(im, f.S);
+% responds_MR = applyFilters2(im, f.MR);
 
 % Generate texture id's using K-means clustering
 K = 64;
-textureID = clusteringRespond(responds, K);
-textureID_LM = clusteringRespond(responds_LM, K);
-textureID_S = clusteringRespond(responds_S, K);
-textureID_MR = clusteringRespond(responds_MR, K);
-save(strcat('results/textonCluster_', imgName), 'textureID', 'textureID_LM', 'textureID_S', 'textureID_MR');
+% textureID = clusteringRespond(responds, K);
+% textureID_LM = clusteringRespond(responds_LM, K);
+% textureID_S = clusteringRespond(responds_S, K);
+% textureID_MR = clusteringRespond(responds_MR, K);
+% save(strcat('results/textonCluster_', imgName), 'textureID', 'textureID_LM', 'textureID_S', 'textureID_MR');
+load(strcat('results/textonCluster_', imgName));
 
 % Display texton map and save image as TextonMap_ImageName.png,
 % use command saveas
@@ -43,7 +44,7 @@ img_lab = rgb2lab(img);
 minLab = arrayfun(@(x) min(min(img_lab(:, :, x))), 1:size(img_lab, 3));
 maxLab = arrayfun(@(x) max(max(img_lab(:, :, x))), 1:size(img_lab, 3));
 bK = K;
-binsL = linspace(minLab(1), maxLab(1) + 0.0001, bK + 1);
+binsL = linspace(0, 100 + 0.0001, bK + 1);
 brightID = getID(img_lab(:, :, 1), binsL);
 
 % Display brightness map and save image as BrightnessMap_ImageName.png,
@@ -63,8 +64,8 @@ close
 %% Generate Color Gradient (bg)
 % Perform Chi-square calculation on Color Map
 cK = K;
-binsA = linspace(minLab(2), maxLab(2) + 0.0001, cK + 1);
-binsB = linspace(minLab(3), maxLab(3) + 0.0001, cK + 1);
+binsA = linspace(-86.185, 98.26 + 0.0001, cK + 1);
+binsB = linspace(-107.863, 94.5 + 0.0001, cK + 1);
 colorAID = getID(img_lab(:, :, 2), binsA);
 colorBID = getID(img_lab(:, :, 3), binsB);
 cgA = computeGradient(colorAID, h, cK);
