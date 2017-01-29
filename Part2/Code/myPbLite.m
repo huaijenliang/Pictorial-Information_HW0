@@ -25,8 +25,9 @@ load(strcat('results/textonCluster_', imgName));
 
 % Display texton map and save image as TextonMap_ImageName.png,
 % use command saveas
-% fig_texture = imagesc(textureID); colormap(jet);
-
+fig_texture = imagesc(textureID); colormap(jet);
+saveas(gcf, strcat('../Images/TextonMap/TextonMap_', imgName, '.png'))
+close
 %% Generate Texton Gradient (tg)
 % Perform Chi-square calculation on Texton Map
 tg = computeGradient(textureID, h, K);
@@ -35,7 +36,7 @@ tg_n = myNormalize(tg);
 % Display tg and save image as tg_ImageName.png,
 % use command saveas
 imshow(tg_n)
-saveas(gcf, strcat('results/tg/', imgName, '.png'))
+saveas(gcf, strcat('../Images/tg/tg_', imgName, '.png'))
 close
 
 %% Generate Brightness Map
@@ -46,7 +47,8 @@ maxLab = arrayfun(@(x) max(max(img_lab(:, :, x))), 1:size(img_lab, 3));
 bK = K;
 binsL = linspace(0, 100 + 0.0001, bK + 1);
 brightID = getID(img_lab(:, :, 1), binsL);
-
+fig_bright = imagesc(brightID); colormap(jet);
+saveas(gcf, strcat('../Images/BrightnessMap/BrightnessMap_', imgName, '.png'))
 % Display brightness map and save image as BrightnessMap_ImageName.png,
 % use command saveas
 
@@ -58,7 +60,7 @@ bg_n = myNormalize(bg);
 % Display bg and save image as bg_ImageName.png,
 % use command saveas
 imshow(bg_n)
-saveas(gcf, strcat('results/bg/', imgName, '.png'))
+saveas(gcf, strcat('../Images/bg/bg_', imgName, '.png'))
 close
 
 %% Generate Color Gradient (bg)
@@ -88,7 +90,7 @@ SobelPb = sobel_pb(im,0.08:0.02:.3);
 % Display SobelPb and save image as SobelPb_ImageName.png
 % use command saveas
 imshow(SobelPb)
-saveas(gcf, strcat('results/Sobel/', imgName, '.png'))
+saveas(gcf, strcat('../Images/SobelPb/SobelPb_', imgName, '.png'))
 close
 
 %% Get Canny Baseline
@@ -100,7 +102,7 @@ CannyPb = canny_pb(im,0.1:0.1:.7,1:1:4);
 % Display CannyPb and save image as CannyPb_ImageName.png
 % use command saveas
 imshow(CannyPb)
-saveas(gcf, strcat('results/Canny/', imgName, '.png'))
+saveas(gcf, strcat('../Images/CannyPb/CannyPb_', imgName, '.png'))
 close
 
 %% Combine responses to get pb-lite output
@@ -110,6 +112,7 @@ PbLite = myNormalize(PbLite);
 % Display PbLite and save image as PbLite_ImageName.png
 % use command saveas
 imshow(PbLite)
+saveas(gcf, strcat('../Images/PbLite/PbLite_', imgName, '.png'))
 imwrite(PbLite, strcat('results/PbLite/', imgName, '.png'))
 close
 
