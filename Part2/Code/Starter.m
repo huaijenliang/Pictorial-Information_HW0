@@ -26,7 +26,7 @@ imageDir = '../TestImages/';
 testImg = dir([imageDir, '*.jpg']);
 
 for i = 1:numel(testImg)
-    disp(strcat('Computing pb-lite for ', testImg(i).name));
+    disp(strcat('Computing pb-lite for image_', testImg(i).name));
     PbLite = myPbLite(imageDir, testImg(i).name, f, h);
 end
 
