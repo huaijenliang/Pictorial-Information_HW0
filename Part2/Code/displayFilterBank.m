@@ -5,15 +5,14 @@ function [ fig ] = displayFilterBank( f )
 scale = size(f, 1);
 orient = size(f{1}, 3);
 
-fig = figure;
+ff = tight_subplot(scale, orient, [.0001 .003], [.00001 .000001], [.001 .001]);;
 
 for s = 1:scale
     for o = 1:orient
         filter = f{s}(:, :, o);
         filter = filter - min(filter(:));
         filter = filter / max(filter(:));
-        fig;
-        subplot(scale, orient, (s - 1) * orient + o), imshow(filter);
+        axes(ff((s - 1) * orient + o)), imshow(filter);
     end
 end
 
