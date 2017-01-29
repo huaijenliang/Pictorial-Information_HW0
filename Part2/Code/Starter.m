@@ -3,19 +3,22 @@
 % PhD in CS Student at University of Maryland, College Park
 
 img = imread('../TestImages/1.jpg');
-im = im2double(rgb2gray(img));
+img = im2double(img);
+im = rgb2gray(img);
+
+load('filters');
 
 %% Generate Oriented Gaussian Filter Bank
 % Display all the Gaussian Filter Bank and save image as GaussianFB_ImageName.png,
 % use command saveas
 scales = [5, 9, 13];
-f = createFilterBank(scales, 16);
-% fig_f = displayFilterBank(f);
+% f = createFilterBank(scales, 16);
+fig_f = displayFilterBank(f);
 
 %% Generate Half-disk masks
 % Display all the GHalf-disk masks and save image as HDMasks_ImageName.png,
 % use command saveas
-h = createHalfDisc(f);
+% h = createHalfDisc(f);
 fig_h = displayHalfDisc(h);
 
 %% Generate Texton Map
@@ -27,7 +30,7 @@ textureID = clusteringRespond(responds, K);
 
 % Display texton map and save image as TextonMap_ImageName.png,
 % use command saveas
-fig_texture = imagesc(textureID);
+fig_texture = imagesc(textureID); colormap(jet);
 
 %% Generate Texton Gradient (tg)
 % Perform Chi-square calculation on Texton Map
@@ -37,7 +40,8 @@ tg = computeGradient(textureID, h, K);
 
 %% Generate Brightness Map
 % Perform brightness binning 
-brightID = floor(im / 4);
+img_lab = rgb2lab(img);
+brightID = floor(img_lab(:, :, 1) / 4);
 bK = floor(256 / 4);
 
 % Display brightness map and save image as BrightnessMap_ImageName.png,
@@ -47,6 +51,17 @@ bK = floor(256 / 4);
 % Perform Chi-square calculation on Brightness Map
 bg = computeGradient(brightID, h, bK);
 % Display bg and save image as bg_ImageName.png,
+% use command saveas
+
+%% Generate Color Gradient (bg)
+% Perform Chi-square calculation on Color Map
+colorAID = floor(img_lab(:, :, 2) / 4);
+colorBID = floor(img_lab(:, :, 3) / 4);
+cK = floor(256 / 4);
+cgA = computeGradient(colorAID, h, cK);
+cgB = computeGradient(colorBID, h, cK);
+cg = cgA + cgB;
+% Display bg and save image as cg_ImageName.png,
 % use command saveas
 
 %% Get Sobel Baseline
