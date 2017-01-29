@@ -20,7 +20,7 @@ textureID = clusteringRespond(responds, K);
 textureID_LM = clusteringRespond(responds_LM, K);
 textureID_S = clusteringRespond(responds_S, K);
 textureID_MR = clusteringRespond(responds_MR, K);
-save(strcat('results/textonCluster_', imgName), textureID, textureID_LM, textureID_MR, textureID_S);
+save(strcat('results/textonCluster_', imgName), 'textureID', 'textureID_LM', 'textureID_S', 'textureID_MR');
 
 % Display texton map and save image as TextonMap_ImageName.png,
 % use command saveas
@@ -34,13 +34,17 @@ tg_n = myNormalize(tg);
 % Display tg and save image as tg_ImageName.png,
 % use command saveas
 imshow(tg_n)
-saveas(tg_n, strcat('results/tg_', imgName, '.png'))
+saveas(gcf, strcat('results/tg_', imgName, '.png'))
+close
 
 %% Generate Brightness Map
 % Perform brightness binning 
 img_lab = rgb2lab(img);
-brightID = floor(img_lab(:, :, 1) / 4);
-bK = floor(256 / 4);
+minLab = arrayfun(@(x) min(min(img_lab(:, :, x))), 1:size(img_lab, 3));
+maxLab = arrayfun(@(x) max(max(img_lab(:, :, x))), 1:size(img_lab, 3));
+bK = K;
+binsL = linspace(minLab(1), maxLab(1) + 0.0001, bK + 1);
+brightID = getID(img_lab(:, :, 1), binsL);
 
 % Display brightness map and save image as BrightnessMap_ImageName.png,
 % use command saveas
@@ -53,13 +57,16 @@ bg_n = myNormalize(bg);
 % Display bg and save image as bg_ImageName.png,
 % use command saveas
 imshow(bg_n)
-saveas(bg_n, strcat('results/bg_', imgName, '.png'))
+saveas(gcf, strcat('results/bg_', imgName, '.png'))
+close
 
 %% Generate Color Gradient (bg)
 % Perform Chi-square calculation on Color Map
-colorAID = floor(img_lab(:, :, 2) / 4);
-colorBID = floor(img_lab(:, :, 3) / 4);
-cK = floor(256 / 4);
+cK = K;
+binsA = linspace(minLab(2), maxLab(2) + 0.0001, cK + 1);
+binsB = linspace(minLab(3), maxLab(3) + 0.0001, cK + 1);
+colorAID = getID(img_lab(:, :, 2), binsA);
+colorBID = getID(img_lab(:, :, 3), binsB);
 cgA = computeGradient(colorAID, h, cK);
 cgB = computeGradient(colorBID, h, cK);
 cg = cgA + cgB;
@@ -68,7 +75,8 @@ cg_n = myNormalize(cg);
 % Display bg and save image as cg_ImageName.png,
 % use command saveas
 imshow(cg_n)
-saveas(cg_n, strcat('results/cg_', imgName, '.png'))
+saveas(gcf, strcat('results/cg_', imgName, '.png'))
+close
 
 %% Get Sobel Baseline
 % Uncomment the bottom line
@@ -79,7 +87,8 @@ SobelPb = sobel_pb(im,0.08:0.02:.3);
 % Display SobelPb and save image as SobelPb_ImageName.png
 % use command saveas
 imshow(SobelPb)
-saveas(SobelPb, strcat('results/SobelPb_', imgName, '.png'))
+saveas(gcf, strcat('results/SobelPb_', imgName, '.png'))
+close
 
 %% Get Canny Baseline
 % Uncomment the bottom line
@@ -90,7 +99,8 @@ CannyPb = canny_pb(im,0.1:0.1:.7,1:1:4);
 % Display CannyPb and save image as CannyPb_ImageName.png
 % use command saveas
 imshow(CannyPb)
-saveas(CannyPb, strcat('results/CannyPb_', imgName, '.png'))
+saveas(gcf, strcat('results/CannyPb_', imgName, '.png'))
+close
 
 %% Combine responses to get pb-lite output
 % A simple combination function would be: PbLite = (tg+gb).*(SobelPb+CannyPb)
@@ -99,7 +109,8 @@ PbLite = myNormalize(PbLite);
 % Display PbLite and save image as PbLite_ImageName.png
 % use command saveas
 imshow(PbLite)
-saveas(PbLite, strcat('results/PbLite_', imgName, '.png'))
+saveas(gcf, strcat('results/PbLite_', imgName, '.png'))
+close
 
 end
 
