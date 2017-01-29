@@ -9,19 +9,18 @@ im = rgb2gray(img);
 
 %% Generate Texton Map
 % Filter image using oriented gaussian filter bank
-% responds = applyFilters(im, f.GG);
-% responds_LM = applyFilters2(im, f.LM);
-% responds_S = applyFilters2(im, f.S);
-% responds_MR = applyFilters2(im, f.MR);
+responds = applyFilters(im, f.GG);
+responds_LM = applyFilters2(im, f.LM);
+responds_S = applyFilters2(im, f.S);
+responds_MR = applyFilters2(im, f.MR);
 
 % Generate texture id's using K-means clustering
 K = 64;
-% textureID = clusteringRespond(responds, K);
-% textureID_LM = clusteringRespond(responds_LM, K);
-% textureID_S = clusteringRespond(responds_S, K);
-% textureID_MR = clusteringRespond(responds_MR, K);
-% save(strcat('results/textonCluster_', imgName), 'textureID', 'textureID_LM', 'textureID_S', 'textureID_MR');
-load(strcat('results/textonCluster_', imgName));
+textureID = clusteringRespond(responds, K);
+textureID_LM = clusteringRespond(responds_LM, K);
+textureID_S = clusteringRespond(responds_S, K);
+textureID_MR = clusteringRespond(responds_MR, K);
+save(strcat('results/textonCluster_', imgName), 'textureID', 'textureID_LM', 'textureID_S', 'textureID_MR');
 
 % Display texton map and save image as TextonMap_ImageName.png,
 % use command saveas
@@ -35,17 +34,15 @@ tg_n = myNormalize(tg);
 % Display tg and save image as tg_ImageName.png,
 % use command saveas
 imshow(tg_n)
-saveas(gcf, strcat('results/tg/', imgName, '.png'))
-close
+saveas(gcf, strcat('results/tg_', imgName, '.png'))
 
 %% Generate Brightness Map
 % Perform brightness binning 
 img_lab = rgb2lab(img);
-minLab = arrayfun(@(x) min(min(img_lab(:, :, x))), 1:size(img_lab, 3));
-maxLab = arrayfun(@(x) max(max(img_lab(:, :, x))), 1:size(img_lab, 3));
+minLab = arrayfun(@(x) min(min(img_lab
 bK = K;
-binsL = linspace(0, 100 + 0.0001, bK + 1);
-brightID = getID(img_lab(:, :, 1), binsL);
+bins = linspace(0, 1.000001, bK + 1);
+brightID = getID(img_lab(:, :, 1), bins);
 
 % Display brightness map and save image as BrightnessMap_ImageName.png,
 % use command saveas
@@ -58,16 +55,14 @@ bg_n = myNormalize(bg);
 % Display bg and save image as bg_ImageName.png,
 % use command saveas
 imshow(bg_n)
-saveas(gcf, strcat('results/bg/', imgName, '.png'))
-close
+saveas(gcf, strcat('results/bg_', imgName, '.png'))
 
 %% Generate Color Gradient (bg)
 % Perform Chi-square calculation on Color Map
 cK = K;
-binsA = linspace(-86.185, 98.26 + 0.0001, cK + 1);
-binsB = linspace(-107.863, 94.5 + 0.0001, cK + 1);
-colorAID = getID(img_lab(:, :, 2), binsA);
-colorBID = getID(img_lab(:, :, 3), binsB);
+bins = linspace(0, 1.000001, cK + 1);
+colorAID = getID(img_lab(:, :, 2), bins);
+colorBID = getID(img_lab(:, :, 3), bins);
 cgA = computeGradient(colorAID, h, cK);
 cgB = computeGradient(colorBID, h, cK);
 cg = cgA + cgB;
@@ -76,8 +71,7 @@ cg_n = myNormalize(cg);
 % Display bg and save image as cg_ImageName.png,
 % use command saveas
 imshow(cg_n)
-saveas(gcf, strcat('results/cg/', imgName, '.png'))
-close
+saveas(gcf, strcat('results/cg_', imgName, '.png'))
 
 %% Get Sobel Baseline
 % Uncomment the bottom line
@@ -88,8 +82,7 @@ SobelPb = sobel_pb(im,0.08:0.02:.3);
 % Display SobelPb and save image as SobelPb_ImageName.png
 % use command saveas
 imshow(SobelPb)
-saveas(gcf, strcat('results/Sobel/', imgName, '.png'))
-close
+saveas(gcf, strcat('results/SobelPb_', imgName, '.png'))
 
 %% Get Canny Baseline
 % Uncomment the bottom line
@@ -100,8 +93,7 @@ CannyPb = canny_pb(im,0.1:0.1:.7,1:1:4);
 % Display CannyPb and save image as CannyPb_ImageName.png
 % use command saveas
 imshow(CannyPb)
-saveas(gcf, strcat('results/Canny/', imgName, '.png'))
-close
+saveas(gcf, strcat('results/CannyPb_', imgName, '.png'))
 
 %% Combine responses to get pb-lite output
 % A simple combination function would be: PbLite = (tg+gb).*(SobelPb+CannyPb)
@@ -110,8 +102,7 @@ PbLite = myNormalize(PbLite);
 % Display PbLite and save image as PbLite_ImageName.png
 % use command saveas
 imshow(PbLite)
-imwrite(PbLite, strcat('results/PbLite/', imgName, '.png'))
-close
+saveas(gcf, strcat('results/PbLite_', imgName, '.png'))
 
 end
 
