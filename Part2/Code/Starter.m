@@ -2,16 +2,16 @@
 % Written by: Nitin J. Sanket (nitinsan@terpmail.umd.edu)
 % PhD in CS Student at University of Maryland, College Park
 
-load('filters');
+load('filters_gaussian');
 
 %% Generate Oriented Gaussian Filter Bank
 % Display all the Gaussian Filter Bank and save image as GaussianFB_ImageName.png,
 % use command saveas
 scales = [1, 1.5, 2];
-f = createFilterBank(scales, 16);
-f_LM = makeLMfilters();
-f_S = makeSfilters();
-f_MR = makeRFSfilters();
+f.GG = createFilterBank(scales, 16);
+f.LM = makeLMfilters();
+f.S = makeSfilters();
+f.MR = makeRFSfilters();
 % fig_f = displayFilterBank(f);
 
 %% Generate Half-disk masks
