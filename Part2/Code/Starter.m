@@ -99,6 +99,9 @@ CannyPb = canny_pb(im,0.1:0.1:.7,1:1:4);
 %% Combine responses to get pb-lite output
 % A simple combination function would be: PbLite = (tg+gb).*(SobelPb+CannyPb)
 PbLite = (tg + bg + cg).*(SobelPb + CannyPb);
+minPb = min(PbLite(:));
+maxPb = max(PbLite(:));
+PbLite = (PbLite - minPb) ./ (maxPb - minPb);
 % Display PbLite and save image as PbLite_ImageName.png
 % use command saveas
 
