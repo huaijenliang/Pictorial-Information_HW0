@@ -35,7 +35,7 @@ tg_n = myNormalize(tg);
 % Display tg and save image as tg_ImageName.png,
 % use command saveas
 imshow(tg_n)
-saveas(gcf, strcat('results/tg_', imgName, '.png'))
+saveas(gcf, strcat('results/tg/', imgName, '.png'))
 close
 
 %% Generate Brightness Map
@@ -58,7 +58,7 @@ bg_n = myNormalize(bg);
 % Display bg and save image as bg_ImageName.png,
 % use command saveas
 imshow(bg_n)
-saveas(gcf, strcat('results/bg_', imgName, '.png'))
+saveas(gcf, strcat('results/bg/', imgName, '.png'))
 close
 
 %% Generate Color Gradient (bg)
@@ -76,7 +76,7 @@ cg_n = myNormalize(cg);
 % Display bg and save image as cg_ImageName.png,
 % use command saveas
 imshow(cg_n)
-saveas(gcf, strcat('results/cg_', imgName, '.png'))
+saveas(gcf, strcat('results/cg/', imgName, '.png'))
 close
 
 %% Get Sobel Baseline
@@ -88,7 +88,7 @@ SobelPb = sobel_pb(im,0.08:0.02:.3);
 % Display SobelPb and save image as SobelPb_ImageName.png
 % use command saveas
 imshow(SobelPb)
-saveas(gcf, strcat('results/SobelPb_', imgName, '.png'))
+saveas(gcf, strcat('results/Sobel/', imgName, '.png'))
 close
 
 %% Get Canny Baseline
@@ -100,7 +100,7 @@ CannyPb = canny_pb(im,0.1:0.1:.7,1:1:4);
 % Display CannyPb and save image as CannyPb_ImageName.png
 % use command saveas
 imshow(CannyPb)
-saveas(gcf, strcat('results/CannyPb_', imgName, '.png'))
+saveas(gcf, strcat('results/Canny/', imgName, '.png'))
 close
 
 %% Combine responses to get pb-lite output
@@ -110,7 +110,7 @@ PbLite = myNormalize(PbLite);
 % Display PbLite and save image as PbLite_ImageName.png
 % use command saveas
 imshow(PbLite)
-saveas(gcf, strcat('results/PbLite_', imgName, '.png'))
+saveas(gcf, strcat('results/PbLite/', imgName, '.png'))
 close
 
 end
