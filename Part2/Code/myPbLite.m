@@ -9,10 +9,10 @@ im = rgb2gray(img);
 
 %% Generate Texton Map
 % Filter image using oriented gaussian filter bank
-responds = applyFilters(im, f.GG);
-responds_LM = applyFilters2(im, f.LM);
-responds_S = applyFilters2(im, f.S);
-responds_MR = applyFilters2(im, f.MR);
+responds = applyFilters(im, f{1});
+responds_LM = applyFilters2(im, f{2});
+responds_S = applyFilters2(im, f{3});
+responds_MR = applyFilters2(im, f{4});
 
 % Generate texture id's using K-means clustering
 K = 64;

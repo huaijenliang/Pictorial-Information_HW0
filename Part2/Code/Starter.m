@@ -8,10 +8,10 @@ load('filters_gaussian');
 % Display all the Gaussian Filter Bank and save image as GaussianFB_ImageName.png,
 % use command saveas
 scales = [1, 1.5, 2];
-f.GG = createFilterBank(scales, 16);
-f.LM = makeLMfilters();
-f.S = makeSfilters();
-f.MR = makeRFSfilters();
+f{1} = createFilterBank(scales, 16);
+f{2} = makeLMfilters();
+f{3} = makeSfilters();
+f{4} = makeRFSfilters();
 % fig_f = displayFilterBank(f);
 
 %% Generate Half-disk masks
