@@ -11,9 +11,9 @@ for s = 1:scale
     for o = 1:orient
         tempG = inputD * 0.0;
         for k = 1:K
-            tmp = (inputD == k);
-            g_i = imfilter(tmp, h{s, 1}(:, :, o), 'conv');
-            h_i = imfilter(tmp, h{s, 2}(:, :, o), 'conv');
+            tmp = double((inputD == k));
+            g_i = imfilter(tmp, h{s, 1}(:, :, o), 'conv', 'replicate');
+            h_i = imfilter(tmp, h{s, 2}(:, :, o), 'conv', 'replicate');
             tempG = tempG + 0.5 * double(g_i - h_i).^2 ./ double(g_i + h_i + eps);
         end
         g(:, :, ((s - 1) * orient + o)) = tempG;
