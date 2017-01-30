@@ -25,7 +25,7 @@ save('filters_gaussian', 'f', 'h');
 imageDir = '../TestImages/';
 testImg = dir([imageDir, '*.jpg']);
 
-for i = 1:4%numel(testImg)
+for i = 1:numel(testImg)
     disp(strcat('Computing pb-lite for image_', testImg(i).name));
     PbLite = myPbLite(imageDir, testImg(i).name, f, h);
 end

@@ -9,19 +9,19 @@ im = rgb2gray(img);
 
 %% Generate Texton Map
 % Filter image using oriented gaussian filter bank
-% responds = applyFilters(im, f.GG);
+responds = applyFilters(im, f.GG);
 % responds_LM = applyFilters2(im, f.LM);
 % responds_S = applyFilters2(im, f.S);
 % responds_MR = applyFilters2(im, f.MR);
 
 % Generate texture id's using K-means clustering
 K = 64;
-% textureID = clusteringRespond(responds, K);
+textureID = clusteringRespond(responds, K);
 % textureID_LM = clusteringRespond(responds_LM, K);
 % textureID_S = clusteringRespond(responds_S, K);
 % textureID_MR = clusteringRespond(responds_MR, K);
-% save(strcat('results/textonCluster2_', imgName), 'textureID', 'textureID_LM', 'textureID_S', 'textureID_MR');
-load(strcat('results/textonCluster_', imgName));
+save(strcat('results/textonCluster_GG_', imgName), 'textureID');
+% load(strcat('results/textonCluster_', imgName));
 
 % Display texton map and save image as TextonMap_ImageName.png,
 % use command saveas
@@ -145,7 +145,7 @@ close
 
 %% Combine responses to get pb-lite output
 % A simple combination function would be: PbLite = (tg+gb).*(SobelPb+CannyPb)
-PbLite = (tg_n + bg_n + cg_n).*(0.5 * SobelPb + 0.5 * CannyPb);
+PbLite = (tg_n + bg_n + cg_n).*(0.2 * SobelPb + 0.8 * CannyPb);
 PbLite = myNormalize(PbLite);
 % Display PbLite and save image as PbLite_ImageName.png
 % use command saveas
