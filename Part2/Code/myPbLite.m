@@ -45,7 +45,7 @@ img_lab = rgb2lab(img);
 minLab = arrayfun(@(x) min(min(img_lab(:, :, x))), 1:size(img_lab, 3));
 maxLab = arrayfun(@(x) max(max(img_lab(:, :, x))), 1:size(img_lab, 3));
 bK = K;
-binsL = linspace(0, 100 + 0.0001, bK + 1);
+binsL = linspace(minLab(1), maxLab(1), bK + 1);
 brightID = getID(img_lab(:, :, 1), binsL);
 fig_bright = imagesc(brightID); colormap(jet);
 saveas(gcf, strcat('../Images/BrightnessMap/BrightnessMap_', imgName, '.png'))
@@ -66,8 +66,8 @@ close
 %% Generate Color Gradient (bg)
 % Perform Chi-square calculation on Color Map
 cK = K;
-binsA = linspace(-86.185, 98.26 + 0.0001, cK + 1);
-binsB = linspace(-107.863, 94.5 + 0.0001, cK + 1);
+binsA = linspace(minLab(2), maxLab(2), cK + 1);
+binsB = linspace(minLab(3), maxLab(3), cK + 1);
 colorAID = getID(img_lab(:, :, 2), binsA);
 colorBID = getID(img_lab(:, :, 3), binsB);
 cgA = computeGradient(colorAID, h, cK);
