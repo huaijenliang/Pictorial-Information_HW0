@@ -107,7 +107,7 @@ close
 
 %% Combine responses to get pb-lite output
 % A simple combination function would be: PbLite = (tg+gb).*(SobelPb+CannyPb)
-PbLite = (tg + bg + cg).*(SobelPb + CannyPb);
+PbLite = (tg + bg + cg).*(0.5 * SobelPb + 0.5 * CannyPb);
 PbLite = myNormalize(PbLite);
 % Display PbLite and save image as PbLite_ImageName.png
 % use command saveas
