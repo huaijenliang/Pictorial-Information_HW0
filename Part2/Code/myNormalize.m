@@ -4,7 +4,7 @@ function [ output ] = myNormalize( input )
 
 minIn = min(input(:));
 maxIn = max(input(:));
-output = (input - minIn) ./ (maxIn - minIn);
+output = double(input - minIn) ./ double(maxIn - minIn);
 
 end
 

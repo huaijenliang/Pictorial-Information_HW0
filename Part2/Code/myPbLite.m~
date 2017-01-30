@@ -15,7 +15,7 @@ im = rgb2gray(img);
 % responds_MR = applyFilters2(im, f.MR);
 
 % Generate texture id's using K-means clustering
-K = 64;
+K = ;
 % textureID = clusteringRespond(responds, K);
 % textureID_LM = clusteringRespond(responds_LM, K);
 % textureID_S = clusteringRespond(responds_S, K);
