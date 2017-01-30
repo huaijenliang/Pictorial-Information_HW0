@@ -28,7 +28,7 @@ save(strcat('results/textonCluster_GG_', imgName), 'textureID');
 ff = figure;
 imagesc(textureID); colormap(jet);
 saveas(ff, strcat('../Images/TextonMap/TextonMap_', imgName, '.png'))
-close
+% close
 %% Generate Texton Gradient (tg)
 % Perform Chi-square calculation on Texton Map
 tg = computeGradient(textureID, h, K);
@@ -39,7 +39,7 @@ tg_n = myNormalize(tg);
 ff = figure;
 imshow(tg_n)
 saveas(ff, strcat('../Images/tg/tg_', imgName, '.png'))
-close
+% close
 
 % tg = computeGradient(textureID_LM, h, K);
 % tg = mean(tg, 3);
@@ -96,7 +96,7 @@ bg_n = myNormalize(bg);
 ff = figure;
 imshow(bg_n)
 saveas(ff, strcat('../Images/bg/bg_', imgName, '.png'))
-close
+% close
 
 %% Generate Color Gradient (bg)
 % Perform Chi-square calculation on Color Map
@@ -115,7 +115,7 @@ cg_n = myNormalize(cg);
 ff = figure;
 imshow(cg_n)
 saveas(ff, strcat('results/cg/', imgName, '.png'))
-close
+% close
 
 %% Get Sobel Baseline
 % Uncomment the bottom line
@@ -128,7 +128,7 @@ SobelPb = sobel_pb(im,0.08:0.02:.3);
 ff = figure;
 imshow(SobelPb)
 saveas(ff, strcat('../Images/SobelPb/SobelPb_', imgName, '.png'))
-close
+% close
 
 %% Get Canny Baseline
 % Uncomment the bottom line
@@ -141,7 +141,7 @@ CannyPb = canny_pb(im,0.1:0.1:.7,1:1:4);
 ff = figure;
 imshow(CannyPb)
 saveas(ff, strcat('../Images/CannyPb/CannyPb_', imgName, '.png'))
-close
+% close
 
 %% Combine responses to get pb-lite output
 % A simple combination function would be: PbLite = (tg+gb).*(SobelPb+CannyPb)
