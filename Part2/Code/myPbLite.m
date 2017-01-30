@@ -9,19 +9,19 @@ im = rgb2gray(img);
 
 %% Generate Texton Map
 % Filter image using oriented gaussian filter bank
-% responds = applyFilters(im, f.GG);
+responds = applyFilters(im, f.GG);
 % responds_LM = applyFilters2(im, f.LM);
 % responds_S = applyFilters2(im, f.S);
 % responds_MR = applyFilters2(im, f.MR);
 
 % Generate texture id's using K-means clustering
-K = 64;
-% textureID = clusteringRespond(responds, K);
+K = 32;
+textureID = clusteringRespond(responds, K);
 % textureID_LM = clusteringRespond(responds_LM, K);
 % textureID_S = clusteringRespond(responds_S, K);
 % textureID_MR = clusteringRespond(responds_MR, K);
-% save(strcat('results/textonCluster_', imgName), 'textureID', 'textureID_LM', 'textureID_S', 'textureID_MR');
-load(strcat('results/textonCluster_', imgName));
+% save(strcat('results/textonCluster2_', imgName), 'textureID', 'textureID_LM', 'textureID_S', 'textureID_MR');
+% load(strcat('results/textonCluster_', imgName));
 
 % Display texton map and save image as TextonMap_ImageName.png,
 % use command saveas
