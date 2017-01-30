@@ -1,4 +1,4 @@
-function [ labels, outImg ] = gaussianPinIt( filename )
+function [ labels, labels_gmm, outImg ] = gaussianPinIt( filename )
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
 
